@@ -1,0 +1,24 @@
+.header-text {
+    margin-left: 8px;
+}
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.MuiButton-root {
+    min-width: 10px !important;
+}
+.buttons-header{
+display: flex;
+}
+.meniu-style{
+    margin-left: -12;
+    margin-right:  20;
+}
+
+.meniulogo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

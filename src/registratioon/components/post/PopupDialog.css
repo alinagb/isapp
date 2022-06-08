@@ -1,0 +1,7 @@
+.MuiDialog-paperWidthSm {
+    max-width: 1000px !important;
+}
+
+.MuiDialog-container {
+    width: 100vw;
+}
