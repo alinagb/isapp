@@ -32,14 +32,14 @@ const Map = ({parentCallBack}) => {
   }
 
   return (
-    <div style={{ display: "flex", height: "400px", width: "500px" }}>
+    <div style={{ display: "flex", height: "525px", width: "800px" }}>
       <Wrapper apiKey={"AIzaSyCCuP8HpKJbPtcbaiHuVRpEZ-g3mB3-eBk"} render={render}>
         <MapRef
           center={center}
           onClick={onClick}
           onIdle={onIdle}
           zoom={zoom}
-          style={{ flexGrow: "1", height: "400px", width: "500px" }}
+          style={{ flexGrow: "1", height: "525px", width: "800px" }}
         >
           {clicks.map((latLng, i) => (
             <Marker key={i} position={latLng} >

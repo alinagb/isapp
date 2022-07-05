@@ -54,6 +54,7 @@ export default function DetailsPost({ accessToken, userEmail }) {
     const [lat, setLat] = useState();
     const [lng, setLng] = useState();
     const [location, setLocation] = useState();
+    const [noRooms, setNoRooms] = useState();
 
     const [isActive, setIsActive] = useState(false);
 
@@ -82,7 +83,7 @@ export default function DetailsPost({ accessToken, userEmail }) {
                 setNearBy(responsePost.data.facultySet)
                 setLat(responsePost.data.lat)
                 setLng(responsePost.data.lng)
-
+                setNoRooms(responsePost.data.noRooms)
                 getUsers().then((responseUsers) => {
                     setOwner(responseUsers.data.filter(user => user.userId === responsePost.data.owner)[0])
                     setAvatar("http://localhost:8090/registration/profile/" + responseUsers.data.filter(user => user.userId === responsePost.data.owner)[0].userId)
@@ -129,27 +130,15 @@ export default function DetailsPost({ accessToken, userEmail }) {
                 <FaArrowCircleLeft style={{ marginRight: "10px" }}> </FaArrowCircleLeft>Go back to properties</Button>
         </div>
         <Card className="cardDetails" >
-            <div style={{ display: "flex", placeContent: "space-between" }}>
-                {/* <CardHeader
-                    avatar={
-                        <Avatar aria-label="Recipe" className="avatar">
-                            R
-                        </Avatar>
-                    }
-                    // action={
-                    //     <IconButton>
-                    //         <MoreVertIcon />
-                    //     </IconButton>
-                    // }
-                    title="Shrimp and Chorizo Paella"
-                    subheader="September 14, 2016"
-                /> */}
+
+            <div style={{ display: 'flex' }}>
+
+                {profilePhotoExist?.map(photo => (
+                    <AlertDialog photo={photo} owner={owner} imgs={profilePhotoExist}  >
+                        <img style={{ width: "20%", marginLeft: "20px" }} src={"http://localhost:8090/posts/image/" + owner?.userId + "/" + photo.fileId}></img>
+                    </AlertDialog>
+                ))}
             </div>
-            {profilePhotoExist?.map(photo => (
-                <AlertDialog photo={photo} owner={owner}>
-                    <img style={{ width: "20%", marginLeft: "20px" }} src={"http://localhost:8090/posts/image/" + owner?.userId + "/" + photo.fileId}></img>
-                </AlertDialog>
-            ))}
 
             <div style={{ display: "flex", alignItems: "center", placeContent: "space-between" }}>
                 <h2 style={{ marginLeft: "20px", overflowWrap: "anywhere", marginRight: "5px" }}>{title}</h2>
@@ -186,6 +175,9 @@ export default function DetailsPost({ accessToken, userEmail }) {
 
         </div>
         <p><strong>{description}</strong></p>
+        <p><strong>Number of rooms:</strong>   <Chip label={noRooms}></Chip>
+        </p>
+
         <p><strong>Near By</strong></p>
         {nearBy.map(fac => (
             <Chip label={fac?.name}></Chip>

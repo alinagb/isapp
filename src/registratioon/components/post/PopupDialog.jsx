@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -7,10 +7,10 @@ import Carousel from './Carousel';
 import "./PopupDialog.css"
 
 
-export default function AlertDialog({ photo, owner }) {
+export default function AlertDialog({ photo, owner, imgs }) {
 
     const [open, setOpen] = useState(false)
-
+    console.log("asda")
     const handleClickOpen = () => {
         setOpen(true)
     };
@@ -21,11 +21,8 @@ export default function AlertDialog({ photo, owner }) {
 
     return (
         <div className='alina'>
-            <img  onClick={handleClickOpen} style={{ width: "20%", marginLeft: "20px" }} src={"http://localhost:8090/posts/image/" + owner?.userId + "/" + photo.fileId}></img>
+            <img  onClick={handleClickOpen} style={{ width: "90%", marginLeft: "20px" }} src={"http://localhost:8090/posts/image/" + owner?.userId + "/" + photo.fileId}></img>
 
-            {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-                Open alert dialog
-            </Button> */}
             <Dialog
                 open={open}
                 onClose={handleClose}
@@ -34,7 +31,7 @@ export default function AlertDialog({ photo, owner }) {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogContent>
-                    <Carousel photo={photo} owner={owner}></Carousel>
+                    <Carousel photo={photo} owner={owner} imgs={imgs}></Carousel>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary" autoFocus>

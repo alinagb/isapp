@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './header.css';
 import { useHistory } from 'react-router-dom';
 import {
@@ -16,11 +16,13 @@ import { IsAuthenticatedContext } from '../../../contexts/authProvider';
 import { SIGN_UP_PAGE_URL_PATH } from '../../../registratioon/config';
 
 export default function Header() {
-    let history = useHistory();
     // const { header, logo } = useStyles();
     const { isAuthenticated, keycloak } = useContext(IsAuthenticatedContext);
 
 
+    useEffect(() => {
+
+    })
     const headersData = [
 
         isAuthenticated && {
@@ -54,38 +56,8 @@ export default function Header() {
                 </div>
 
                 <div className='buttons-header'>
-                    <div style={{
-
-                        position: 'relative',
-                        marginLeft: 0,
-                        width: '100%',
-                        justifyContent: 'space-around',
-                        display: 'flex',
-                        borderRadius: '4px',
-                        backgroundColor: 'rgba(255, 255, 255, 0.15)',
-                        width: 'auto',
-                        marginLeft: '8px',
-                        alignItems: 'center'
-
-                    }}>
-                        <div style={{marginRight: '10px', marginLeft: '10px'}}>
-                            <FaSearch />
-                        </div>
-                        <InputBase
-                            placeholder="Search…"
-                            classes={{
-                                root: {
-                                    color: 'inherit',
-                                    width: '100%'
-                                },
-                                input: {
-                                    width: '100%',
-                                }
-                            }}
-                        />
-                    </div>
+                   
                     {getMenuButtons()}
-
 
                 </div>
             </Toolbar >

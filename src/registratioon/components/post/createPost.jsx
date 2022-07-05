@@ -26,6 +26,7 @@ export default function CreatePost({ accessToken, userEmail }) {
     const ITEM_PADDING_TOP = 8;
     const [names, setNames] = useState([]);
     const [facs, setFacs] = useState([]);
+    const [noRooms, setNoRooms] = useState();
 
     const callback = (lat, lng) => {
         setLat(lat)
@@ -60,7 +61,7 @@ export default function CreatePost({ accessToken, userEmail }) {
         console.log("files in", files)
         console.log("images in", images)
 
-        await createPost(accessToken, files, title, description, JSON.stringify(names), owner, JSON.stringify(facs), lat, lng, price).then(response => {
+        await createPost(accessToken, files, title, description, JSON.stringify(names), owner, JSON.stringify(facs), lat, lng, price, noRooms).then(response => {
             if (response.status === 201) {
                 history.push({
                     pathname: "/post/" + response.data.postId
@@ -100,6 +101,7 @@ export default function CreatePost({ accessToken, userEmail }) {
                 <FaArrowCircleLeft style={{ marginRight: "10px" }}> </FaArrowCircleLeft>Go back to properties</Button>
         </div>
         <h1> Add new property </h1>
+        <p> * If there are residents, make sure they have an account already created</p>
         <div className="fields">
             <div className="column1">
                 <TextField
@@ -114,11 +116,22 @@ export default function CreatePost({ accessToken, userEmail }) {
 
                 <TextField
                     id="standard-helperText"
-                    label="Price: "
+                    label="Price (EUR): "
                     defaultValue=" "
                     className="textField"
+                    type="number"
                     value={price}
                     onChange={e => setPrice(e.target.value)}
+                    margin="normal"
+                />
+                <TextField
+                    id="standard-helperText"
+                    label="Number of rooms "
+                    type="number"
+                    defaultValue=" "
+                    className="textField"
+                    value={noRooms}
+                    onChange={e => setNoRooms(e.target.value)}
                     margin="normal"
                 />
                 <TextField

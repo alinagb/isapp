@@ -30,6 +30,16 @@ export const GET_FACULTIES_ENDPOINT_URL = `http://localhost:8090/faculties`;
 export const GET_USERS_ENDPOINT_URL = `http://localhost:8090/registration/users`;
 export const GET_POSTS_ENDPOINT_URL = `http://localhost:8090/posts`;
 
+export const GET_POSTS_BY_PRICE_ENDPOINT_URL = (price) => {
+  return `http://localhost:8090/posts/price/${price}`;
+};
+export const GET_POSTS_BY_NO_ROOMS_ENDPOINT_URL = (rooms) => {
+  return `http://localhost:8090/posts/rooms/${rooms}`;
+};
+
+export const GET_POSTS_BY_FACULTY_ENDPOINT_URL = (faculty) => {
+  return `http://localhost:8090/posts/faculty/${faculty}`;
+};
 
 export const GET_PROFILE_ENDPOINT_URL = (userId) => {
   return `http://localhost:8090/registration/users/${userId}`;

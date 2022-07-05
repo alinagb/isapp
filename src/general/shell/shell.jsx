@@ -17,7 +17,7 @@ export default function Shell({ children, backLinkUrl, keycloak }) {
     return (
         <div className='shell'>
             <Header keycloak = {keycloak} />
-            {isAuthenticated &&  <Sidebar></Sidebar>}
+             <Sidebar></Sidebar>
 
             <div className='shell-body'>
                 <div>

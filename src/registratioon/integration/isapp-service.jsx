@@ -1,4 +1,4 @@
-import { CREATE_POST_ENDPOINT_URL, CREATE_USER_ENDPOINT_URL, GET_FACULTIES_ENDPOINT_URL, GET_FAVOURITES_POST_ENDPOINT_URL, GET_POSTS_ENDPOINT_URL, GET_POST_ENDPOINT_URL, GET_PROFILE_ENDPOINT_URL, GET_UNIVERSITIES_ENDPOINT_URL, GET_USERS_ENDPOINT_URL, GET_USER_ENDPOINT_URL, UPDATE_FAVOURITES_USER_ENDPOINT_URL, UPDATE_USER_ENDPOINT_URL } from "../config";
+import { CREATE_POST_ENDPOINT_URL, CREATE_USER_ENDPOINT_URL, GET_FACULTIES_ENDPOINT_URL, GET_FAVOURITES_POST_ENDPOINT_URL, GET_POSTS_BY_FACULTY_ENDPOINT_URL, GET_POSTS_BY_NO_ROOMS_ENDPOINT_URL, GET_POSTS_BY_PRICE_ENDPOINT_URL, GET_POSTS_ENDPOINT_URL, GET_POST_ENDPOINT_URL, GET_PROFILE_ENDPOINT_URL, GET_UNIVERSITIES_ENDPOINT_URL, GET_USERS_ENDPOINT_URL, GET_USER_ENDPOINT_URL, UPDATE_FAVOURITES_USER_ENDPOINT_URL, UPDATE_USER_ENDPOINT_URL } from "../config";
 import { getReasonPhrase } from "http-status-codes";
 
 /**
@@ -217,13 +217,13 @@ export async function getUsers() {
 }
 
 
-export async function createPost(accessToken, files, title, description, selectedUsers, owner, facultySet, lat, lng, price) {
+export async function createPost(accessToken, files, title, description, selectedUsers, owner, facultySet, lat, lng, price, noRooms) {
   let data = new FormData();
 
   for (const file of files) {
     data.append('files', file)
   }
-  let post = '{"userSet": ' + selectedUsers + ', "description":"' + description + '", "title":"' + title + '", "price":' + price + ', "lat":' + lat + ',"lng":' + lng + ', "facultySet":' + facultySet + '}'
+  let post = '{"userSet": ' + selectedUsers + ', "description":"' + description + '", "title":"' + title + '", "price":' + price + ', "lat":' + lat + ',"lng":' + lng + ', "facultySet":' + facultySet +  ',"noRooms":' + noRooms+'}'
   data.append("post", post);
 
 
@@ -370,6 +370,91 @@ export async function getFavouritePosts(accessToken,userEmail) {
         statusText: getReasonPhrase(500),
       };
     });
+
+  return response;
+}
+
+export async function getPostsByPrice(price) {
+  let response;
+
+  await fetch(GET_POSTS_BY_PRICE_ENDPOINT_URL(price), {
+    method: "GET",
+  })
+    .then(async (resp) => {
+      response = {
+        status: resp.status,
+        statusText: resp.statusText || getReasonPhrase(resp.status),
+      };
+
+      return resp.json();
+    })
+    .then((data) => {
+      response = { ...response, data: data };
+    })
+    .catch((err) => {
+      response = {
+        status: 500,
+        statusText: getReasonPhrase(500),
+      };
+    });
+
+
+  return response;
+}
+
+export async function getPostsByRooms(noRoooms) {
+  let response;
+
+  await fetch(GET_POSTS_BY_NO_ROOMS_ENDPOINT_URL(noRoooms), {
+    method: "GET",
+  })
+    .then(async (resp) => {
+      response = {
+        status: resp.status,
+        statusText: resp.statusText || getReasonPhrase(resp.status),
+      };
+
+      return resp.json();
+    })
+    .then((data) => {
+      response = { ...response, data: data };
+    })
+    .catch((err) => {
+      response = {
+        status: 500,
+        statusText: getReasonPhrase(500),
+      };
+    });
+
+
+  return response;
+}
+
+
+export async function getPostsByFaculty(faculty) {
+  let response;
+
+  await fetch(GET_POSTS_BY_FACULTY_ENDPOINT_URL(faculty), {
+    method: "GET",
+  })
+    .then(async (resp) => {
+      response = {
+        status: resp.status,
+        statusText: resp.statusText || getReasonPhrase(resp.status),
+      };
+
+      return resp.json();
+    })
+    .then((data) => {
+      response = { ...response, data: data };
+    })
+    .catch((err) => {
+      response = {
+        status: 500,
+        statusText: getReasonPhrase(500),
+      };
+    });
+
 
   return response;
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import MobileStepper from '@material-ui/core/MobileStepper';
@@ -49,6 +49,7 @@ class TextMobileStepper extends React.Component {
     activeStep: 0,
   };
 
+
   handleNext = () => {
     this.setState(prevState => ({
       activeStep: prevState.activeStep + 1,
@@ -64,14 +65,13 @@ class TextMobileStepper extends React.Component {
   render() {
     const { classes, theme } = this.props;
     const { activeStep } = this.state;
-    const maxSteps = tutorialSteps.length;
+    const maxSteps = this.props.imgs.length;
 
     return (
       <div className={classes.root}>
-
         <img
           className={classes.img}
-          src={tutorialSteps[activeStep].imgPath}
+          src={"http://localhost:8090/posts/image/" + this.props.owner.userId +  "/" +this.props.imgs[activeStep].fileId}
         />
         <MobileStepper
           steps={maxSteps}
